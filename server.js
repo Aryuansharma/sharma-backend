@@ -6,6 +6,7 @@ const nodemailer = require("nodemailer");
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));  // REQUIRED
 
 // Health check
 app.get("/", (req, res) => res.send("Backend is running"));
@@ -34,15 +35,11 @@ app.post("/send-message", async (req, res) => {
     await transporter.sendMail(mailOptions);
 
     return res.json({ success: true, msg: "Message sent!" });
-
   } catch (error) {
     console.error("Error sending email:", error);
     return res.json({ success: false, msg: "Failed to send" });
   }
-});  // ← THIS WAS MISSING
+});
 
-// SERVER START
 const PORT = process.env.PORT || 5500;
-app.listen(PORT, () =>
-  console.log(`Backend running → http://localhost:${PORT}`)
-);  // ← THIS ALSO WAS BROKEN
+app.listen(PORT, () => console.log(`Backend running → http://localhost:${PORT}`));
