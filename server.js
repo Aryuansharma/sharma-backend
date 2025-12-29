@@ -4,7 +4,6 @@ const express = require("express");
 const cors = require("cors");
 const rateLimit = require("express-rate-limit");
 const { Resend } = require("resend");
-const fetch = require("node-fetch");
 
 /* ---------- APP SETUP ---------- */
 const app = express();
